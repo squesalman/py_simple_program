@@ -66,3 +66,16 @@ def check_board_full(board):
   return full
 
 
+def replay():
+  while True:
+    replay = input("do you want to play again? Enter 'y' or 'n' : ")
+    replay = replay.capitalize()
+    if replay == 'Y' or replay == 'N':
+      break
+    else:
+      print('enter y or n')
+  
+  if replay == 'Y':
+    return True
+  else:
+    return False
