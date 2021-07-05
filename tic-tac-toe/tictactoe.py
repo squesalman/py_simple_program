@@ -34,7 +34,10 @@ def choose_position(board):
   
     try:
       position = int(input('Enter position from 1-9'))
-      if board[position-1] in ['X','O']:
+      if position == 0:
+        print("0 is not allowed")
+        position = 'wrong'
+      elif board[position-1] in ['X','O']:
         print('position occupied')
         position = 'wrong'
       else:
@@ -43,6 +46,7 @@ def choose_position(board):
       print('enter valid number')
     except IndexError:
       print('number out of bound')
+
   return int(position)-1
 
 def update_board(marker,position,board):
