@@ -2,9 +2,10 @@ from tictactoe import *
 
 if __name__ == "__main__":
   print('WELCOME to TIC TAC TOE')
-
+  
   while True:
     game_board = ['']*9
+    print(display_board(game_board))
     player1,player2 = user_input()
     turn = start_first()
     print(f"{turn} will go first")
