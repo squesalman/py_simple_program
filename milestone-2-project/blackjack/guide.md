@@ -8,16 +8,17 @@ Blackjack Game
   - human player
     -- human player will have a bankroll
       --- can place bet
-  - Deal 2 cards to dealer and player
+  - Deal 2 cards (from deck) to dealer and player
     -- dealer - 1 face up and 1 face down
     -- player - both face up
   - Goal : To get closer to the total value of 21 than the dealer does
     -- total value is the total value of face up cards
   - Possible Actions :
-    -- Hit (Receive another card)(from the deck)
+    -- 'Hit' (Receive another card)(from the deck)
     -- Stay (Stop receiving card)
   - After player turn : 
     -- if value < 21, dealer hits until they win or bust (value over 21)
+    --- how to access value from Card object?
   - End game logic : 
     - Player Bust
       -- if player keep hitting and value > 21, they bust and lost the bet (money reduce) ; dealer collect money

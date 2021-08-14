@@ -18,7 +18,7 @@ class Card():
   def __str__(self):
     return f'{self.rank} of {self.suit}'
 
-class Deck():
+class Deck(Card):
   
   def __init__(self):
     self.all_cards = []
@@ -63,6 +63,8 @@ class Player():
       return statement
     except IndexError:
       print("No cards available")
+
+
 
 
 
