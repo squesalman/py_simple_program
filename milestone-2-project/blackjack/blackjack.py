@@ -9,7 +9,7 @@ values = {'Two':2, 'Three':3, 'Four':4, 'Five':5, 'Six':6, 'Seven':7, 'Eight':8,
 playing = True
 
 class Card():
-  """Has 2 attributes suit and rank. card object will be instantiated and passed to deck class"""
+  """Has 2 attributes suit and rank. card object will be used to instantiate deck class"""
   def __init__(self,suit,rank):
     self.suit = suit
     self.rank = rank
@@ -54,11 +54,15 @@ class Hand:
 
 
   def add_card(self,card):
-    """How to add value based on the card object?""""
     self.cards.append(card)
+    self.value += card.value
 
   def adjust_for_aces(self):
-    """Need to check condition if have 2 aces""""
+    # Check condition if aces in list
+    # Check condition total value in deck
+    for i in range(len(self.cards)):
+      if self.cards[i][0:2] == "Ace":
+        pass
     if self.value <= 10 :
       self.aces = 11
     else:
@@ -89,8 +93,13 @@ def take_bet():
   return bet
 
 def hit(Deck,Hand):
-  """Need to have condition to check for Aces""""
+  #Need to have condition to check for Aces
   return Hand.add_card(Deck.deal_card())
 
-
-
+def check_for_aces(Hand):
+    for i in range(len(Hand.cards)):
+        a = Hand.cards[i]
+        if a.rank == "Ace":
+          return True
+        else:
+          return False
