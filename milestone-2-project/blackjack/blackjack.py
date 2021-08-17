@@ -16,7 +16,10 @@ class Card():
     self.value = values[rank]
 
   def __str__(self):
-    return f'{self.rank} of {self.suit}'
+    try:
+      return f'{self.rank} of {self.suit}'
+    except IndexError:
+      return "index out of range"
 
 
 class Deck():
@@ -60,13 +63,10 @@ class Hand:
   def adjust_for_aces(self):
     # Check condition if aces in list
     # Check condition total value in deck
-    for i in range(len(self.cards)):
-      if self.cards[i][0:2] == "Ace":
-        pass
-    if self.value <= 10 :
-      self.aces = 11
-    else:
+    if self.value > 21 :
       self.aces = 1
+    else:
+      self.aces = 11
     return self.aces
 
 class Chips:
@@ -81,25 +81,66 @@ class Chips:
   def lose_bet(self):
     self.balance = self.balance - self.bet
 
+"""Function to take bet"""
+def take_bet(Chips):
   
-
-def take_bet():
-  while True:
+  check = True
+  while check:
     try:
       bet = int(input("Enter bet :"))
-      break
+      if bet > Chips.balance:
+        print("Amount more than balance. Pls re-enter")
+        check = True
+      else:
+        break
     except ValueError:
       print('Enter num only')
   return bet
 
-def hit(Deck,Hand):
+"""Function to hit"""
+def hit(deck,hand):
+  # Function will be used when player request or dealer's hand less than 17
+  # Either player can take hits until they bust
   #Need to have condition to check for Aces
-  return Hand.add_card(Deck.deal_card())
+  hand.add_card(deck.deal_card())
 
+"""Function to check for aces"""
 def check_for_aces(Hand):
+
     for i in range(len(Hand.cards)):
         a = Hand.cards[i]
         if a.rank == "Ace":
           return True
         else:
           return False
+
+def hit_or_stand(deck,hand):
+
+    global playing  # to control an upcoming while loop
+    while True:
+      check_hit = input("Hit or Stand?")
+      if check_hit[0].capitalize() == 'H' or check_hit[0].capitalize() == 'S':
+        break
+      else:
+        print('Enter correct input')
+
+    if check_hit[0].upper() =='H':
+      hit(deck,hand)
+    else:
+      playing = False
+
+"""Function to show player's cards and some of dealer's card"""
+def show_some(player,dealer):
+
+  for i in range(len(player.cards)):
+    print(f'player cards {i} {player.cards[i]}')
+  print(f'player score : {player.value}\n')
+  for i in range(len(dealer.cards)-1):
+      print(f'dealer cards {i} : {player.cards[i]}')
+  print(f'dealer score : {dealer.cards[i].value}')
+  
+
+deck=Deck()
+deck.shuffle()
+hand=Hand()
+dealer = Hand()
