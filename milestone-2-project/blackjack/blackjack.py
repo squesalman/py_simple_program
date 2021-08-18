@@ -64,10 +64,8 @@ class Hand:
     # Check condition if aces in list
     # Check condition total value in deck
     if self.value > 21 :
-      self.aces = 1
-    else:
-      self.aces = 11
-    return self.aces
+      self.value = self.value - 10
+    return self.value
 
 class Chips:
 
