@@ -80,20 +80,20 @@ class Chips:
     self.balance = self.balance - self.bet
 
 """Function to take bet"""
-def take_bet(Chips):
-  
+def take_bet(chips):
+  chips.bet = 0
   check = True
   while check:
     try:
-      bet = int(input("Enter bet :"))
-      if bet > Chips.balance:
+      chips.bet = int(input("Enter bet :"))
+      if chips.bet > chips.balance:
         print("Amount more than balance. Pls re-enter")
         check = True
       else:
         break
     except ValueError:
       print('Enter num only')
-  return bet
+  return chips.bet
 
 """Function to hit"""
 def hit(deck,hand):
@@ -101,12 +101,14 @@ def hit(deck,hand):
   # Either player can take hits until they bust
   #Need to have condition to check for Aces
   hand.add_card(deck.deal_card())
+  if check_for_aces(hand):
+    hand.adjust_for_aces()
 
 """Function to check for aces"""
-def check_for_aces(Hand):
+def check_for_aces(hand):
 
-    for i in range(len(Hand.cards)):
-        a = Hand.cards[i]
+    for i in range(len(hand.cards)):
+        a = hand.cards[i]
         if a.rank == "Ace":
           return True
         else:
@@ -134,11 +136,38 @@ def show_some(player,dealer):
     print(f'player cards {i} {player.cards[i]}')
   print(f'player score : {player.value}\n')
   for i in range(len(dealer.cards)-1):
+      print(f'dealer cards {i} : {dealer.cards[i]}')
+  print(f'dealer score : {dealer.value}')
+
+def show_all(player,dealer):
+  for i in range(len(player.cards)):
+    print(f'player cards {i} {player.cards[i]}')
+  print(f'player score : {player.value}\n')
+  for i in range(len(dealer.cards)):
       print(f'dealer cards {i} : {player.cards[i]}')
-  print(f'dealer score : {dealer.cards[i].value}')
+  print(f'dealer score : {dealer.value}')
   
 
-deck=Deck()
-deck.shuffle()
-hand=Hand()
-dealer = Hand()
+def player_busts(hand,hand_chips,dealer_chips):
+  hand_chips.balance = hand_chips.balance - hand_chips.bet
+  dealer_chips.balance = dealer_chips.balance + dealer_chips.bet + hand_chips.bet
+  print(f"Bust!. Your score : {hand.value} \n")
+
+
+def player_wins(hand,dealer,hand_chips,dealer_chips):
+  hand_chips.balance = hand_chips.balance + hand_chips.bet + dealer_chips.bet
+  print(f"Dealer lose. Dealer score : {dealer.value} \n")
+  print(f"Player wins! Player Score : {hand.value} Player wins bet : {hand_chips.bet+dealer_chips.bet} \n")
+
+def dealer_busts(dealer,hand_chips,dealer_chips):
+  dealer_chips.balance = dealer_chips.balance - dealer_chips.bet
+  hand_chips.balance = hand_chips.balance + dealer_chips.bet + hand_chips.bet
+  print(f"Dealer Bust!. Dealer score : {dealer.value} \n")
+    
+def dealer_wins(hand,dealer,hand_chips,dealer_chips):
+  dealer_chips.balance = dealer_chips.balance + dealer_chips.bet + hand_chips.bet
+  print(f"Player lose. Player score : {hand.value} \n")
+  print(f"Dealer wins! Dealer Score : {dealer.value} Dealer wins bet : {dealer_chips.bet + hand_chips.bet} \n")
+    
+def push():
+  pass
