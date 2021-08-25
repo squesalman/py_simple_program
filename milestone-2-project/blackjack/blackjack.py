@@ -81,7 +81,6 @@ class Chips:
 
 """Function to take bet"""
 def take_bet(chips):
-  chips.bet = 0
   check = True
   while check:
     try:
@@ -116,18 +115,18 @@ def check_for_aces(hand):
 
 def hit_or_stand(deck,hand):
 
-    global playing  # to control an upcoming while loop
+    global playing # to control an upcoming while loop
     while True:
       check_hit = input("Hit or Stand?")
-      if check_hit[0].capitalize() == 'H' or check_hit[0].capitalize() == 'S':
+      if check_hit.capitalize()[0] == 'H' or check_hit.capitalize()[0] == 'S':
         break
       else:
-        print('Enter correct input')
+        print('Pls Enter correct input')
 
-    if check_hit[0].upper() =='H':
+    if check_hit.capitalize()[0] =='H':
       hit(deck,hand)
     else:
-      playing = False
+      playing == False
 
 """Function to show player's cards and some of dealer's card"""
 def show_some(player,dealer):
@@ -171,3 +170,19 @@ def dealer_wins(hand,dealer,hand_chips,dealer_chips):
     
 def push():
   pass
+
+def replay():
+  while True:
+    replay = input("do you want to play again? Enter 'y' or 'n' : ")
+    replay = replay.capitalize()
+    if replay == 'Y' or replay == 'N':
+      break
+    else:
+      print('enter y or n')
+  
+  if replay == 'Y':
+    return True
+  else:
+    return False
+
+
