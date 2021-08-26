@@ -54,7 +54,9 @@ if __name__ == "__main__":
         
     show_all(player,dealer)
 
-    if player.value > dealer.value:
+    if player.value > 21:
+      player_busts(player,player_chips,dealer_chips)
+    elif player.value > dealer.value:
       player_wins(player,dealer,player_chips,dealer_chips)
     elif player.value == 21:
       print("Blackjack!")
