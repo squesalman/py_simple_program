@@ -4,3 +4,4 @@ Collection of Python simple program
 2. Simple password generator. Length limiter is set to 20
   2.1 Version 2. GUI available. Next iteration will prompt for user input on length of the password
 3. Real time clock is sample GUI implementation. Code snippet were taken online
+4. Milestone-2-projects are projects based on UdeMY course
