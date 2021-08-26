@@ -158,7 +158,7 @@ def player_wins(hand,dealer,hand_chips,dealer_chips):
   hand_chips.balance = hand_chips.balance + hand_chips.bet + dealer_chips.bet
   dealer_chips.balance = dealer_chips.balance - dealer_chips.bet
   print(f"Dealer lose. Dealer score : {dealer.value} \n")
-  print(f"{Fore.RED}Player wins! Player Score : {hand.value} Player wins bet : {hand_chips.bet + dealer_chips.bet} {Style.RESET_ALL} \n")
+  print(f"{Fore.GREEN}Player wins! Player Score : {hand.value} Player wins bet : {hand_chips.bet + dealer_chips.bet} {Style.RESET_ALL} \n")
 
 def dealer_busts(dealer,hand_chips,dealer_chips):
   dealer_chips.balance = dealer_chips.balance - dealer_chips.bet
@@ -169,7 +169,7 @@ def dealer_wins(hand,dealer,hand_chips,dealer_chips):
   dealer_chips.balance = dealer_chips.balance + dealer_chips.bet
   hand_chips.balance = hand_chips.balance - hand_chips.bet
   print(f"Player lose. Player score : {hand.value} \n")
-  print(f"{Fore.RED}Dealer wins! Dealer Score : {dealer.value} Dealer wins bet : {dealer_chips.bet + hand_chips.bet} {Style.RESET_ALL} \n")
+  print(f"{Fore.GREEN}Dealer wins! Dealer Score : {dealer.value} Dealer wins bet : {dealer_chips.bet + hand_chips.bet} {Style.RESET_ALL} \n")
     
 def push():
   pass

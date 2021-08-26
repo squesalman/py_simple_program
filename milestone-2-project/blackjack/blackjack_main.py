@@ -25,6 +25,7 @@ if __name__ == "__main__":
 
     print(f"Your balance is : {player_chips.balance} \n")
     take_bet(player_chips)
+    dealer_chips.bet = player_chips.bet
 
     for i in range(2):
       player.add_card(deck.deal_card())
