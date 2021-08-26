@@ -1,5 +1,7 @@
 import random
 import math
+from colorama import Fore
+from colorama import Style
 
 suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
 ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
@@ -118,15 +120,14 @@ def hit_or_stand(deck,hand):
     global playing # to control an upcoming while loop
     while True:
       check_hit = input("Hit or Stand?")
-      if check_hit.capitalize()[0] == 'H' or check_hit.capitalize()[0] == 'S':
+      if check_hit[0].capitalize() =='H':
+        hit(deck,hand)
+        break
+      elif check_hit[0].capitalize() == 'S':
+        return playing == False
         break
       else:
         print('Pls Enter correct input')
-
-    if check_hit.capitalize()[0] =='H':
-      hit(deck,hand)
-    else:
-      playing == False
 
 """Function to show player's cards and some of dealer's card"""
 def show_some(player,dealer):
@@ -136,37 +137,39 @@ def show_some(player,dealer):
   print(f'player score : {player.value}\n')
   for i in range(len(dealer.cards)-1):
       print(f'dealer cards {i} : {dealer.cards[i]}')
-  print(f'dealer score : {dealer.value}')
+  print(f'dealer score : {dealer.value}\n')
 
 def show_all(player,dealer):
   for i in range(len(player.cards)):
-    print(f'player cards {i} {player.cards[i]}')
-  print(f'player score : {player.value}\n')
+    print(f'{Fore.BLUE} player cards {i} {player.cards[i]} {Style.RESET_ALL}')
+  print(f'{Fore.BLUE}player score : {player.value} {Style.RESET_ALL}\n')
   for i in range(len(dealer.cards)):
-      print(f'dealer cards {i} : {player.cards[i]}')
-  print(f'dealer score : {dealer.value}')
+      print(f'{Fore.BLUE}dealer cards {i} : {dealer.cards[i]} {Style.RESET_ALL}')
+  print(f'{Fore.BLUE}dealer score : {dealer.value} {Style.RESET_ALL}\n')
   
 
 def player_busts(hand,hand_chips,dealer_chips):
   hand_chips.balance = hand_chips.balance - hand_chips.bet
   dealer_chips.balance = dealer_chips.balance + dealer_chips.bet + hand_chips.bet
-  print(f"Bust!. Your score : {hand.value} \n")
-
+  print(f"{Fore.RED}Bust!. Your score : {hand.value} {Style.RESET_ALL} \n")
+  
 
 def player_wins(hand,dealer,hand_chips,dealer_chips):
   hand_chips.balance = hand_chips.balance + hand_chips.bet + dealer_chips.bet
+  dealer_chips.balance = dealer_chips.balance - dealer_chips.bet
   print(f"Dealer lose. Dealer score : {dealer.value} \n")
-  print(f"Player wins! Player Score : {hand.value} Player wins bet : {hand_chips.bet+dealer_chips.bet} \n")
+  print(f"{Fore.RED}Player wins! Player Score : {hand.value} Player wins bet : {hand_chips.bet + dealer_chips.bet} {Style.RESET_ALL} \n")
 
 def dealer_busts(dealer,hand_chips,dealer_chips):
   dealer_chips.balance = dealer_chips.balance - dealer_chips.bet
   hand_chips.balance = hand_chips.balance + dealer_chips.bet + hand_chips.bet
-  print(f"Dealer Bust!. Dealer score : {dealer.value} \n")
+  print(f"{Fore.RED}Dealer Bust!. Dealer score : {dealer.value} {Style.RESET_ALL} \n")
     
 def dealer_wins(hand,dealer,hand_chips,dealer_chips):
-  dealer_chips.balance = dealer_chips.balance + dealer_chips.bet + hand_chips.bet
+  dealer_chips.balance = dealer_chips.balance + dealer_chips.bet
+  hand_chips.balance = hand_chips.balance - hand_chips.bet
   print(f"Player lose. Player score : {hand.value} \n")
-  print(f"Dealer wins! Dealer Score : {dealer.value} Dealer wins bet : {dealer_chips.bet + hand_chips.bet} \n")
+  print(f"{Fore.RED}Dealer wins! Dealer Score : {dealer.value} Dealer wins bet : {dealer_chips.bet + hand_chips.bet} {Style.RESET_ALL} \n")
     
 def push():
   pass

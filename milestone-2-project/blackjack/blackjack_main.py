@@ -7,8 +7,9 @@ if __name__ == "__main__":
   # Game Setup
   
   #check for double aces during initial deal
-  
-  playing=True
+  global player_chips
+  global dealer_chips
+  playing = True
   game_on = True
   while game_on:
     deck = Deck()
@@ -33,13 +34,20 @@ if __name__ == "__main__":
       player.adjust_for_aces()
     
     show_some(player,dealer)
+    # Condition to check blackjack during initial card dealing
     if player.value == 21:
-      print('Blackjack!')
+      print(f'{Fore.RED}Blackjack!{Style.RESET_ALL}')
       player_wins(player,dealer,player_chips,dealer_chips)
-      game_on = False
-        
+      break
+    elif dealer.value == 21:
+      print(f'{Fore.RED}Blackjack!{Style.RESET_ALL}')
+      dealer_wins(player,dealer,player_chips,dealer_chips)
+      break
+
     while playing:
-      hit_or_stand(deck,player)
+
+      if not hit_or_stand(deck,player):
+        break
       show_some(player,dealer)
       
       if player.value > 21:
@@ -49,8 +57,10 @@ if __name__ == "__main__":
   
     while dealer.value <= 17:
       hit(deck,dealer)
+    # Need to identify how to manage replay once break loop
     if dealer.value > 21:
       dealer_busts(dealer,player_chips,dealer_chips)
+      break
         
     show_all(player,dealer)
 
@@ -59,8 +69,11 @@ if __name__ == "__main__":
     elif player.value > dealer.value:
       player_wins(player,dealer,player_chips,dealer_chips)
     elif player.value == 21:
-      print("Blackjack!")
+      print(f"{Fore.RED}Blackjack!{Style.RESET_ALL}")
       player_wins(player,dealer,player_chips,dealer_chips)
+    elif dealer.value == 21:
+      print(f"{Fore.RED}Blackjack!{Style.RESET_ALL}")
+      dealer_wins(player,dealer,player_chips,dealer_chips)
     else:
       dealer_wins(player,dealer,player_chips,dealer_chips)
         
@@ -71,27 +84,28 @@ if __name__ == "__main__":
       if player_chips.balance <= 10 :
         print('Insufficient balance \n')
         print('Game Over')
-      elif len(deck.deck) < 10:
-        deck = Deck()
-        deck.shuffle()
+      # elif len(deck.deck) < 10:
+      #   deck = Deck()
+      #   deck.shuffle()
 
-        player = Hand()
-        dealer = Hand()
+      #   player = Hand()
+      #   dealer = Hand()
 
-        for i in range(2):
-          player.add_card(deck.deal_card())
-          dealer.add_card(deck.deal_card())
-        show_some(player,dealer)
-        game_on = True
+      #   for i in range(2):
+      #     player.add_card(deck.deal_card())
+      #     dealer.add_card(deck.deal_card())
+      #   show_some(player,dealer)
+      #   game_on = True
       else:
-        player = Hand()
-        dealer = Hand()
-
-        for i in range(2):
-          player.add_card(deck.deal_card())
-          dealer.add_card(deck.deal_card())
-        show_some(player,dealer)
         game_on = True
+        # player = Hand()
+        # dealer = Hand()
+
+        # for i in range(2):
+        #   player.add_card(deck.deal_card())
+        #   dealer.add_card(deck.deal_card())
+        # show_some(player,dealer)
+        
     else:
       print('Game Over')
       break
