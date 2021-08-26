@@ -41,9 +41,12 @@ if __name__ == "__main__":
     while playing:
       hit_or_stand(deck,player)
       show_some(player,dealer)
+      
+      if player.value > 21:
+        player_busts(player,player_chips,dealer_chips)
+        break
 
-
-
+  
     while dealer.value <= 17:
       hit(deck,dealer)
     if dealer.value > 21:
@@ -51,9 +54,7 @@ if __name__ == "__main__":
         
     show_all(player,dealer)
 
-    if player.value > 21:
-      player_busts(player,player_chips,dealer_chips)
-    elif player.value > dealer.value:
+    if player.value > dealer.value:
       player_wins(player,dealer,player_chips,dealer_chips)
     elif player.value == 21:
       print("Blackjack!")
